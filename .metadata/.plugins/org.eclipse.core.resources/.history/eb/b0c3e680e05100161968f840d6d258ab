@@ -1,0 +1,67 @@
+//============================================================================
+// Name        : myFirst.cpp
+// Author      : Navid Anari
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+
+#include <iostream>
+#include <vector>
+#include <pthread.h>
+#include <unistd.h>
+#include <mutex>
+#include <map>
+#include <boost/lexical_cast.hpp>
+
+using namespace std;
+
+int glob = 0;
+
+std::vector<int> myVec;
+std::mutex mx;
+
+void * writer(void *)
+{
+	for(int i = 0; i<100; i++)
+	{
+
+		mx.lock();
+		usleep(100000);
+		myVec.push_back(i);
+		mx.unlock();
+	}
+
+	pthread_exit(0);
+}
+
+void * reader(void *)
+{
+	for(int i = 0; true; i++)
+	{
+		mx.lock();
+		if(!myVec.empty())
+		{
+			cout<< myVec.back()<<endl;
+			myVec.pop_back();
+		}
+		mx.unlock();
+	}
+	pthread_exit(0);
+}
+
+int main() {
+
+	pthread_t th2,th1;
+
+	pthread_create(&th2, NULL, writer, NULL);
+	pthread_create(&th1, NULL, reader, NULL);
+
+	pthread_join(th2, NULL);
+	pthread_join(th1, NULL);
+
+	cout<<glob;
+
+	return 0;
+}
+

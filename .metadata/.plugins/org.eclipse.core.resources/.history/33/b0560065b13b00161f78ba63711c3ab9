@@ -1,0 +1,27 @@
+//============================================================================
+// Name        : myFirst.cpp
+// Author      : Navid Anari
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+#include boost/>
+
+int main() {
+
+	vector<int> vec;
+	vec.push_back( 10 );
+	vec.push_back( 20 );
+
+	for (int i : vec )
+	{
+	    cout << i;
+	}
+	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
+	return 0;
+}

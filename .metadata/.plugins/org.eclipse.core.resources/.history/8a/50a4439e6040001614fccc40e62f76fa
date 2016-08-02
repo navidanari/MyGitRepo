@@ -1,0 +1,49 @@
+//============================================================================
+// Name        : myFirst.cpp
+// Author      : Navid Anari
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+
+#include <iostream>
+#include <vector>
+#include <pthread.h>
+#include <unistd.h>
+
+using namespace std;
+
+void * th1Func(void * input)
+{
+	int i = *(int*)input;
+	for(int co =0; co<5000; co++){
+		i++;
+	}
+	cout<<i<<endl;
+}
+
+void * th2Func(void * input)
+{
+	void * v
+	int * localInput = (int*)input;
+	*localInput += 10;
+	cout<<localInput<<endl;\
+	return ;
+}
+
+int main() {
+
+	int i = 0;
+
+	pthread_t th1, th2;
+
+//	pthread_create(&th1, NULL, th1Func, &i);
+	pthread_create(&th2, NULL, th2Func, (void*)i);
+
+
+	pthread_join(th2, NULL);
+//	pthread_join(th1, NULL);
+	cout<<"   "<<i;
+	return 0;
+}
+

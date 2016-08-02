@@ -1,0 +1,87 @@
+//============================================================================
+// Name        : myFirst.cpp
+// Author      : Navid Anari
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+
+#include <iostream>
+#include <vector>
+#include <pthread.h>
+#include <unistd.h>
+#include <mutex>
+#include <condition_variable>
+#include <map>
+#include <queue>
+#include <boost/lexical_cast.hpp>
+
+using namespace std;
+
+struct Frame
+{
+	size_t size = 4000000;
+	void * data = new int(size);
+	int id;
+}myFrame;
+
+std::queue<Frame> myQ;
+
+pthread_cond_t cond;
+pthread_mutex_t mx;
+
+void * writer(void *)
+{
+	Frame myFrame;
+	for(int i = 0; i<5000000; i++)
+	{
+		pthread_mutex_lock(&mx);
+		myFrame.id = i;
+		if (myQ.size() > 100)
+			sleep(1000);
+		myQ.push(myFrame);
+
+		pthread_cond_signal(&cond);
+		pthread_mutex_unlock(&mx);
+	}
+	pthread_exit(0);
+}
+
+void * reader(void *)
+{
+	Frame myFrame;
+	for(int i = 0; true; i++)
+	{
+		pthread_mutex_lock(&mx);
+		while(myQ.empty())
+		{
+			cout<< "I am waiting"<<endl;
+			pthread_cond_wait(&cond, &mx);
+		}
+		myFrame = myQ.front();
+		myQ.pop();
+		cout<<myQ.size()<<endl;
+		pthread_mutex_unlock(&mx);
+		cout<< myFrame.id << endl;
+	}
+	pthread_exit(0);
+}
+
+int main() {
+
+/*	pthread_t th2,th1;
+
+	pthread_create(&th2, NULL, writer, NULL);
+	pthread_create(&th1, NULL, reader, NULL);
+
+	pthread_join(th2, NULL);
+	pthread_join(th1, NULL);
+*/
+	while(true)
+	{
+		sleep(1);
+		cout<<"1"<<endl;
+	}
+	return 0;
+}
+

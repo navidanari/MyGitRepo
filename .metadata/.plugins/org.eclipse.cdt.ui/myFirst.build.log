@@ -1,0 +1,15 @@
+08:05:21 **** Incremental Build of configuration Debug for project myFirst ****
+make all 
+Building file: ../src/Airtame.cpp
+Invoking: Cross G++ Compiler
+g++ -D__GXX_EXPERIMENTAL_CXX0X__ -D__cplusplus=201103L -O0 -g3 -Wall -c -fmessage-length=0 -std=c++11 -MMD -MP -MF"src/Airtame.d" -MT"src/Airtame.d" -o "src/Airtame.o" "../src/Airtame.cpp"
+Finished building: ../src/Airtame.cpp
+ 
+Building target: myFirst
+Invoking: Cross G++ Linker
+g++ -pthread -o "myFirst"  ./src/Airtame.o   
+Finished building target: myFirst
+ 
+
+08:05:21 Build Finished (took 863ms)
+

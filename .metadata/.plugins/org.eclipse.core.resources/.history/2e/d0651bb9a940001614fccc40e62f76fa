@@ -1,0 +1,38 @@
+//============================================================================
+// Name        : myFirst.cpp
+// Author      : Navid Anari
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+
+#include <iostream>
+#include <vector>
+#include <pthread.h>
+#include <unistd.h>
+
+using namespace std;
+int glob = 0;
+
+void * th2Func(void * arg)
+{
+	int * local = (int *)arg;
+
+//	glob += *local;
+	pthread_exit(0);
+
+}
+
+int main() {
+	int arg = 10;
+	pthread_t th2;
+
+	pthread_create(&th2, NULL, th2Func, (void*)arg);
+
+	pthread_join(th2, NULL);
+
+	cout<<"   "<<glob;
+
+	return 0;
+}
+

@@ -1,0 +1,32 @@
+//============================================================================
+// Name        : myFirst.cpp
+// Author      : Navid Anari
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+
+#include <iostream>
+#include <vector>
+
+#include <unistd.h>
+
+using namespace std;
+
+#define foreach BOOST_FOREACH
+
+int main() {
+
+	vector<int> vec;
+	vec.push_back( 10 );
+	vec.push_back( 20 );
+	int i = 0;
+	while (true)//= 0; i < vec.size(); i++)
+	{
+	    cout << i++<<"  ";
+	    usleep(100000);
+	}
+	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
+
+	return 0;
+}
